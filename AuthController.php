@@ -104,8 +104,8 @@ class AuthController extends Controller
 	public function getUser(Request $request, $matric, $column=['matric'])
 		{		
 
-			$matric = '11111111111';
-			$user = DB::table('users')->where('matric', $matric)->first();;
+			$matric = $request->matric;
+			$user = DB::table('users')->where('matric', $matric)->first();
 
 			return ['user' => $user];	
 		}
