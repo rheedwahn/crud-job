@@ -18,6 +18,8 @@ use Image;
 
 use JWTAuth;
 
+use Session;
+
 
 
 class AuthController extends Controller
@@ -81,6 +83,7 @@ class AuthController extends Controller
 
 			return response()->json(['error' =>'Could not create token!'], 500);
 		}
+		session(['matric' => $request->matric]);
 		return response()->json([
 			'token'=> $token
 		], 200);
@@ -104,7 +107,7 @@ class AuthController extends Controller
 	public function getUser(Request $request, $matric, $column=['matric'])
 		{		
 
-			$matric = $request->matric;
+			$matric = Session::get('matric');
 			$user = DB::table('users')->where('matric', $matric)->first();
 
 			return ['user' => $user];	
